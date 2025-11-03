@@ -31,6 +31,14 @@ def add_employee():
                 genderEntry.delete(0, END)
                 dobEntry.delete(0, END)
 
+                query='select * from employee'
+                mycursor.execute(query)
+                fetched_data=mycursor.fetchall()
+                employeeTable.delete(*employeeTable.get_children())
+                for data in fetched_data:
+                    datalist=list(data)
+                    employeeTable.insert('',END,values=datalist)
+
 
     add_root=Toplevel()
     add_root.grab_set()
