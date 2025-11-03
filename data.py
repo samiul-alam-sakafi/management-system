@@ -4,6 +4,10 @@ import time
 import ttkthemes
 from tkinter import ttk
 #functionality part
+
+def connect_database():
+    connectRoot=Toplevel()
+    connectRoot.geometry('470x250+730+230')
 count=0
 text=''
 def slider():
@@ -36,7 +40,7 @@ s='Employee Management System'
 sliderLabel=Label(window,text=s,font=('arial',28,'italic bold'),width=30)
 sliderLabel.place(x=200,y=0)
 slider()
-connectButton=ttk.Button(window,text='Connect to Database')
+connectButton=ttk.Button(window,text='Connect to Database',command=connect_database)
 connectButton.place(x=980,y=0)
 leftFrame=Frame(window)
 leftFrame.place(x=50,y=80,width=300,height=600)
