@@ -9,6 +9,60 @@ import pymysql
 
 #functionality part
 
+def search_employee():
+    def search_data():
+        query='select * from employee where id=%s or name=%s or phone=%s or email=%s or salary=%s or address=%s or gender=%s or dob=%s'
+        mycursor.execute(query,(idEntry.get(),nameEntry.get(),phoneEntry.get(),emailEntry.get(),salaryEntry.get(),addressEntry.get(),genderEntry.get(),dobEntry.get()))
+        employeeTable.delete(*employeeTable.get_children())
+        fetched_data=mycursor.fetchall()
+        for data in fetched_data:
+            employeeTable.insert('', END, values=data)
+    search_root = Toplevel()
+    search_root.title('Search Employee')
+    search_root.grab_set()
+    idLabel = Label(search_root, text='ID', font=('times new roman', 20, 'bold'))
+    idLabel.grid(row=0, column=0, padx=30, pady=15)
+    idEntry = Entry(search_root, font=('roman', 15, 'bold'), width=24)
+    idEntry.grid(row=0, column=1, padx=15, pady=10)
+
+    nameLabel = Label(search_root, text='Name', font=('times new roman', 20, 'bold'))
+    nameLabel.grid(row=1, column=0, padx=30, pady=15)
+    nameEntry = Entry(search_root, font=('roman', 15, 'bold'), width=24)
+    nameEntry.grid(row=1, column=1, padx=15, pady=10)
+
+    phoneLabel = Label(search_root, text='Phone', font=('times new roman', 20, 'bold'))
+    phoneLabel.grid(row=2, column=0, padx=30, pady=15)
+    phoneEntry = Entry(search_root, font=('roman', 15, 'bold'), width=24)
+    phoneEntry.grid(row=2, column=1, padx=15, pady=10)
+
+    emailLabel = Label(search_root, text='Email', font=('times new roman', 20, 'bold'))
+    emailLabel.grid(row=3, column=0, padx=30, pady=15)
+    emailEntry = Entry(search_root, font=('roman', 15, 'bold'), width=24)
+    emailEntry.grid(row=3, column=1, padx=15, pady=10)
+
+    salaryLabel = Label(search_root, text='Salary', font=('times new roman', 20, 'bold'))
+    salaryLabel.grid(row=4, column=0, padx=30, pady=15)
+    salaryEntry = Entry(search_root, font=('roman', 15, 'bold'), width=24)
+    salaryEntry.grid(row=4, column=1, padx=15, pady=10)
+
+    addressLabel = Label(search_root, text='Address', font=('times new roman', 20, 'bold'))
+    addressLabel.grid(row=5, column=0, padx=30, pady=15)
+    addressEntry = Entry(search_root, font=('roman', 15, 'bold'), width=24)
+    addressEntry.grid(row=5, column=1, padx=15, pady=10)
+
+    genderLabel = Label(search_root, text='Gender', font=('times new roman', 20, 'bold'))
+    genderLabel.grid(row=6, column=0, padx=30, pady=15)
+    genderEntry = Entry(search_root, font=('roman', 15, 'bold'), width=24)
+    genderEntry.grid(row=6, column=1, padx=15, pady=10)
+
+    dobLabel = Label(search_root, text='Date of Birth', font=('times new roman', 20, 'bold'))
+    dobLabel.grid(row=9, column=0, padx=30, pady=15)
+    dobEntry = Entry(search_root, font=('roman', 15, 'bold'), width=24)
+    dobEntry.grid(row=9, column=1, padx=15, pady=10)
+
+    search_employee_button = ttk.Button(search_root, text='SEARCH', command=search_data)
+    search_employee_button.grid(row=10, columnspan=2, pady=15)
+
 def add_employee():
     def add_data():
         if idEntry.get()=='' or nameEntry.get()=='' or phoneEntry.get()=='' or emailEntry.get()=='' or salaryEntry.get()== '' or addressEntry.get()=='' or genderEntry.get()=='' or dobEntry.get()=='':
@@ -31,13 +85,13 @@ def add_employee():
                 genderEntry.delete(0, END)
                 dobEntry.delete(0, END)
 
+
                 query='select * from employee'
                 mycursor.execute(query)
                 fetched_data=mycursor.fetchall()
                 employeeTable.delete(*employeeTable.get_children())
                 for data in fetched_data:
-                    datalist=list(data)
-                    employeeTable.insert('',END,values=datalist)
+                    employeeTable.insert('',END,values=data)
 
 
     add_root=Toplevel()
@@ -186,7 +240,7 @@ logo_Label=Label(leftFrame,image=logo_image)
 logo_Label.grid(row=0,column=0,padx=10,pady=10)
 addemployeeeButton=ttk.Button(leftFrame,text='Add Employee',width=15,command=add_employee)
 addemployeeeButton.grid(row=1,column=0,padx=10,pady=10)
-searchemployeeeButton=ttk.Button(leftFrame,text='Search Employee',width=15)
+searchemployeeeButton=ttk.Button(leftFrame,text='Search Employee',width=15,command=search_employee)
 searchemployeeeButton.grid(row=2,column=0,padx=10,pady=10)
 deleteemployeeeButton=ttk.Button(leftFrame,text='Delete Employee',width=15)
 deleteemployeeeButton.grid(row=3,column=0,padx=10,pady=10)
