@@ -11,9 +11,9 @@ import pymysql
 def connect_database():
     def connect():
         try:
-            con=pymysql.connect(hostEntry.get(),user=usernameEntry.get(),password=passwordEntry.get())
+            con=pymysql.connect(host=hostEntry.get(),user=usernameEntry.get(),password=passwordEntry.get())
             mycursor=con.cursor()
-            messagebox.showinfo('Success','Database is Successful')
+            messagebox.showinfo('Success','Database Connection is Successful')
         except:
             messagebox.showerror('Error','Please enter correct username and password')
 
