@@ -8,6 +8,21 @@ from tkinter import ttk
 def connect_database():
     connectRoot=Toplevel()
     connectRoot.geometry('470x250+730+230')
+    connectRoot.title('Database Connection')
+    connectRoot.resizable(0,0)
+
+    hostnameLabel=Label(connectRoot,text='Hostname',font=('arial',20,'bold'))
+    hostnameLabel.grid(row=0,column=0,padx=10,pady=10)
+
+    hostEntry=Entry(connectRoot,font=('roman',15,'bold'),bd=2)
+    hostEntry.grid(row=0,column=1,padx=10,pady=10)
+
+    usernameLabel = Label(connectRoot, text='Username', font=('arial', 20, 'bold'))
+    usernameLabel.grid(row=1, column=0, padx=10, pady=10)
+
+    usernameEntry =Entry(connectRoot,font=('roman',15,'bold'),bd=2)
+    usernameEntry.grid(row=1, column=1, padx=10, pady=10)
+
 count=0
 text=''
 def slider():
