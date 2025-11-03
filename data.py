@@ -2,10 +2,21 @@ from itertools import count
 from tkinter import *
 import time
 import ttkthemes
-from tkinter import ttk
+from tkinter import ttk,messagebox
+import pymysql
+
+
 #functionality part
 
 def connect_database():
+    def connect():
+        try:
+            con=pymysql.connect(hostEntry.get(),user=usernameEntry.get(),password=passwordEntry.get())
+            mycursor=con.cursor()
+            messagebox.showinfo('Success','Database is Successful')
+        except:
+            messagebox.showerror('Error','Please enter correct username and password')
+
     connectRoot=Toplevel()
     connectRoot.geometry('470x250+730+230')
     connectRoot.title('Database Connection')
@@ -22,6 +33,15 @@ def connect_database():
 
     usernameEntry =Entry(connectRoot,font=('roman',15,'bold'),bd=2)
     usernameEntry.grid(row=1, column=1, padx=10, pady=10)
+
+    passwordLabel = Label(connectRoot, text='password', font=('arial', 20, 'bold'))
+    passwordLabel.grid(row=2, column=0, padx=10, pady=10)
+
+    passwordEntry = Entry(connectRoot, font=('roman', 15, 'bold'), bd=2)
+    passwordEntry.grid(row=2, column=1, padx=10, pady=10)
+
+    connectButton=ttk.Button(connectRoot,text='Connect',command=connect)
+    connectButton.grid(row=3,columnspan=2,padx=10,pady=10)
 
 count=0
 text=''
