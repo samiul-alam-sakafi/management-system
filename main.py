@@ -7,6 +7,8 @@ def login():
         messagebox.showerror('Error','Please enter both username and password')
     elif usernameEntry.get()=='Sakafi' and passwordEntry.get()=='1234':
         messagebox.showinfo('Success','Logged in successfully')
+        root.destroy()
+        import data
     else:
         messagebox.showerror('Error','Please enter both correct username and password')
 root = Tk()
