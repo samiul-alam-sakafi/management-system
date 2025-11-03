@@ -1,3 +1,4 @@
+from idlelib import query
 from itertools import count
 from tkinter import *
 import time
@@ -13,11 +14,31 @@ def connect_database():
         try:
             con=pymysql.connect(host=hostEntry.get(),user=usernameEntry.get(),password=passwordEntry.get())
             mycursor=con.cursor()
-            messagebox.showinfo('Success','Database Connection is Successful')
+
         except:
-            messagebox.showerror('Error','Please enter correct username and password')
+            messagebox.showerror('Error','Please enter correct username and password',parent=connectRoot)
+            return
+        try:
+            query='create database employeemanagementsystem'
+            mycursor.execute(query)
+            query='use employeemanagementsystem'
+            mycursor.execute(query)
+            query='create table employee(id int not null primary key,name varchar(30),mobile varchar(10),email varchar(30),salary varchar(10),address varchar(100),gender varchar(20),date varchar(50),time varchar(50),dob varchar(20))'
+            mycursor.execute(query)
+        except:
+            query='use employeemanagementsystem'
+            mycursor.execute(query)
+        messagebox.showinfo('Success', 'Database Connection is Successful', parent=connectRoot)
+        addemployeeeButton.config(state='normal')
+        searchemployeeeButton.config(state='normal')
+        updateemployeeeButton.config(state='normal')
+        deleteemployeeeButton.config(state='normal')
+        exportemployeeeButton.config(state='normal')
+        showemployeeeButton.config(state='normal')
+
 
     connectRoot=Toplevel()
+    connectRoot.grab_set()
     connectRoot.geometry('470x250+730+230')
     connectRoot.title('Database Connection')
     connectRoot.resizable(0,0)
