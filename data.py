@@ -60,6 +60,28 @@ exitButton=ttk.Button(leftFrame,text='Exit',width=15)
 exitButton.grid(row=7,column=0,pady=20)
 rightFrame=Frame(window)
 rightFrame.place(x=350,y=80,width=820,height=600)
+scrollBarX=Scrollbar(rightFrame,orient=HORIZONTAL)
+scrollBarY=Scrollbar(rightFrame,orient=VERTICAL)
+employeeTable=ttk.Treeview(rightFrame,columns=('ID','Name','Mobile No.','Email','Salary','Address'
+                                     ,'Gender','Added Date','Added Time','Date of Birth')
+                           ,xscrollcommand=scrollBarX.set,yscrollcommand=scrollBarY.set
+             ,show='headings')
+scrollBarX.config(command=employeeTable.xview)
+scrollBarY.config(command=employeeTable.yview)
+scrollBarX.pack(side=BOTTOM,fill=X)
+scrollBarY.pack(side=RIGHT,fill=Y)
+employeeTable.pack(fill='both',expand=True)
+
+employeeTable.heading('ID',text='ID')
+employeeTable.heading('Name',text='Name')
+employeeTable.heading('Mobile No.',text='Mobile No.')
+employeeTable.heading('Email',text='Email')
+employeeTable.heading('Salary',text='Salary')
+employeeTable.heading('Address',text='Address')
+employeeTable.heading('Gender',text='Gender')
+employeeTable.heading('Added Date',text='Added Date')
+employeeTable.heading('Added Time',text='Added Time')
+employeeTable.heading('Date of Birth',text='Date of Birth')
 
 
 window.mainloop()
