@@ -14,8 +14,11 @@ def add_employee():
         if idEntry.get()=='' or nameEntry.get()=='' or phoneEntry.get()=='' or emailEntry.get()=='' or salaryEntry.get()== '' or addressEntry.get()=='' or genderEntry.get()=='' or dobEntry.get()=='':
             messagebox.showerror('Error','All Field Are Required!',parent=add_root)
         else:
-            query='insert into employee values(%s,%s,%s,%s,%s,%s,%s,%s)'
-            mycursor.execute(query,(idEntry.get(),nameEntry.get(),phoneEntry.get(),emailEntry.get(),salaryEntry.get(),addressEntry.get(),genderEntry.get(),dobEntry.get()))
+            date = time.strftime("%d/%m/%Y")
+            currenttime = time.strftime("%H:%M:%S")
+            query = 'insert into employee values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+            mycursor.execute(query,(idEntry.get(),nameEntry.get(),phoneEntry.get(),emailEntry.get(),salaryEntry.get(),addressEntry.get(),genderEntry.get(),date,
+                currenttime,dobEntry.get()))
             con.commit()
             result=messagebox.askyesno('Confirm','Data added Successfully. Do you want to clean the form?')
             if result:
@@ -78,7 +81,7 @@ def add_employee():
 
 def connect_database():
     def connect():
-        global mycursor
+        global mycursor,con
         try:
             con=pymysql.connect(host='localhost',user='root',password='1111')
             mycursor=con.cursor()
