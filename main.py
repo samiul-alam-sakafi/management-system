@@ -1,7 +1,17 @@
 from tkinter import*
+from tkinter import messagebox
 from PIL import ImageTk
+
+def login():
+    if usernameEntry.get()=='' or passwordEntry.get()=='':
+        messagebox.showerror('Error','Please enter both username and password')
+    elif usernameEntry.get()=='Sakafi' and passwordEntry.get()=='1234':
+        messagebox.showinfo('Success','Logged in successfully')
+    else:
+        messagebox.showerror('Error','Please enter both correct username and password')
 root = Tk()
 root.wm_geometry('1280x700+0+0')
+root.title('Login System of Employee Management System')
 root.wm_resizable(False, False)
 backgroundImage=ImageTk.PhotoImage(file='python.jpg')
 bgLabel=Label(root,image=backgroundImage)
@@ -28,7 +38,7 @@ passwordEntry.grid(row=2,column=1,pady=10,padx=20)
 
 loginButton=Button(loginFrame,text='Login',font=('times new roman',14,'bold')
                    ,width=15,fg='white',bg='cornflowerblue',activebackground='cornflowerblue'
-                   ,activeforeground='white',cursor='hand2')
+                   ,activeforeground='white',cursor='hand2',command=login)
 loginButton.grid(row=3,column=1,pady=10,padx=20)
 
 root.mainloop()
