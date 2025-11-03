@@ -9,10 +9,78 @@ import pymysql
 
 #functionality part
 
+def add_employee():
+    def add_data():
+        if idEntry.get()=='' or nameEntry.get()=='' or phoneEntry.get()=='' or emailEntry.get()=='' or salaryEntry.get()== '' or addressEntry.get()=='' or genderEntry.get()=='' or dobEntry.get()=='':
+            messagebox.showerror('Error','All Field Are Required!',parent=add_root)
+        else:
+            query='insert into employee values(%s,%s,%s,%s,%s,%s,%s,%s)'
+            mycursor.execute(query,(idEntry.get(),nameEntry.get(),phoneEntry.get(),emailEntry.get(),salaryEntry.get(),addressEntry.get(),genderEntry.get(),dobEntry.get()))
+            con.commit()
+            result=messagebox.askyesno('Confirm','Data added Successfully. Do you want to clean the form?')
+            if result:
+                idEntry.delete(0,END)
+                nameEntry.delete(0, END)
+                phoneEntry.delete(0, END)
+                emailEntry.delete(0, END)
+                salaryEntry.delete(0, END)
+                addressEntry.delete(0, END)
+                genderEntry.delete(0, END)
+                dobEntry.delete(0, END)
+
+
+    add_root=Toplevel()
+    add_root.grab_set()
+    idLabel=Label(add_root,text='ID',font=('times new roman',20,'bold'))
+    idLabel.grid(row=0,column=0,padx=30,pady=15)
+    idEntry=Entry(add_root,font=('roman',15,'bold'),width=24)
+    idEntry.grid(row=0,column=1,padx=15,pady=10)
+
+    nameLabel = Label(add_root, text='Name', font=('times new roman', 20, 'bold'))
+    nameLabel.grid(row=1, column=0, padx=30, pady=15)
+    nameEntry = Entry(add_root, font=('roman', 15, 'bold'), width=24)
+    nameEntry.grid(row=1, column=1, padx=15, pady=10)
+
+    phoneLabel = Label(add_root, text='Phone', font=('times new roman', 20, 'bold'))
+    phoneLabel.grid(row=2, column=0, padx=30, pady=15)
+    phoneEntry = Entry(add_root, font=('roman', 15, 'bold'), width=24)
+    phoneEntry.grid(row=2, column=1, padx=15, pady=10)
+
+    emailLabel = Label(add_root, text='Email', font=('times new roman', 20, 'bold'))
+    emailLabel.grid(row=3, column=0, padx=30, pady=15)
+    emailEntry = Entry(add_root, font=('roman', 15, 'bold'), width=24)
+    emailEntry.grid(row=3, column=1, padx=15, pady=10)
+
+
+    salaryLabel = Label(add_root, text='Salary', font=('times new roman', 20, 'bold'))
+    salaryLabel.grid(row=4, column=0, padx=30, pady=15)
+    salaryEntry = Entry(add_root, font=('roman', 15, 'bold'), width=24)
+    salaryEntry.grid(row=4, column=1, padx=15, pady=10)
+
+    addressLabel = Label(add_root, text='Address', font=('times new roman', 20, 'bold'))
+    addressLabel.grid(row=5, column=0, padx=30, pady=15)
+    addressEntry = Entry(add_root, font=('roman', 15, 'bold'), width=24)
+    addressEntry.grid(row=5, column=1, padx=15, pady=10)
+
+    genderLabel = Label(add_root, text='Gender', font=('times new roman', 20, 'bold'))
+    genderLabel.grid(row=6, column=0, padx=30, pady=15)
+    genderEntry = Entry(add_root, font=('roman', 15, 'bold'), width=24)
+    genderEntry.grid(row=6, column=1, padx=15, pady=10)
+
+    dobLabel = Label(add_root, text='Date of Birth', font=('times new roman', 20, 'bold'))
+    dobLabel.grid(row=9, column=0, padx=30, pady=15)
+    dobEntry = Entry(add_root, font=('roman', 15, 'bold'), width=24)
+    dobEntry.grid(row=9, column=1, padx=15, pady=10)
+
+    add_employee_button=ttk.Button(add_root,text='ADD EMPLOYEE',command=add_data)
+    add_employee_button.grid(row=10,columnspan=2,pady=15)
+
+
 def connect_database():
     def connect():
+        global mycursor
         try:
-            con=pymysql.connect(host=hostEntry.get(),user=usernameEntry.get(),password=passwordEntry.get())
+            con=pymysql.connect(host='localhost',user='root',password='1111')
             mycursor=con.cursor()
 
         except:
@@ -29,6 +97,7 @@ def connect_database():
             query='use employeemanagementsystem'
             mycursor.execute(query)
         messagebox.showinfo('Success', 'Database Connection is Successful', parent=connectRoot)
+        connectRoot.destroy()
         addemployeeeButton.config(state='normal')
         searchemployeeeButton.config(state='normal')
         updateemployeeeButton.config(state='normal')
@@ -104,7 +173,7 @@ leftFrame.place(x=50,y=80,width=300,height=600)
 logo_image=PhotoImage(file='candidates.png')
 logo_Label=Label(leftFrame,image=logo_image)
 logo_Label.grid(row=0,column=0,padx=10,pady=10)
-addemployeeeButton=ttk.Button(leftFrame,text='Add Employee',width=15)
+addemployeeeButton=ttk.Button(leftFrame,text='Add Employee',width=15,command=add_employee)
 addemployeeeButton.grid(row=1,column=0,padx=10,pady=10)
 searchemployeeeButton=ttk.Button(leftFrame,text='Search Employee',width=15)
 searchemployeeeButton.grid(row=2,column=0,padx=10,pady=10)
